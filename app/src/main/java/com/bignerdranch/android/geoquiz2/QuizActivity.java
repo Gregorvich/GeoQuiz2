@@ -64,6 +64,7 @@ public class QuizActivity extends AppCompatActivity {
             }
 
         });
+
         mFalseButton = (Button) findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,4 +89,5 @@ public class QuizActivity extends AppCompatActivity {
         mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
         updateQuestion();
     }
+
 }
