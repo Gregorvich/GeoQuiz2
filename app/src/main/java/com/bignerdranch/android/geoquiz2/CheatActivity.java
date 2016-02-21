@@ -7,8 +7,13 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View;
+import android.util.Log;
 
 public class CheatActivity extends AppCompatActivity {
+
+    private static final String TAG = "CheatActivity";
+    private static final String KEY_CHEAT_STATUS="cheat_status";
+    private boolean mCurrentStatus=false;
 
     /* key that is used for the public Intent putExtra(String name, boolean value) method, which
     is created so that QuizActivity is able to pass information to CheatActivity */
@@ -67,8 +72,20 @@ public class CheatActivity extends AppCompatActivity {
                 }
                 //Calls the method that tells QuizActivity whether the user cheated or not
                 setAnswerShownResult(true);
+                mCurrentStatus=true;
             }
         });
+        if (savedInstanceState != null) {
+            mCurrentStatus=savedInstanceState.getBoolean(KEY_CHEAT_STATUS, false);
+            setAnswerShownResult(mCurrentStatus);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putBoolean(KEY_CHEAT_STATUS, mCurrentStatus);
     }
 
     //Creates a new intent with no parameters, adds an extra onto it that uses the answer shown
